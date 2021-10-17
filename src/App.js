@@ -1,23 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import './index.css';
+import { getData } from './ThunckRedux';
+import Loading from './loadingComponent';
+import DataCMP from './mainComponent';
 
 function App() {
+  const [color, setСolor] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(getData())
+  },[])
+
+  const {data,loading,error} = useSelector((state)=>state.TodosReducer)
+  console.log(data);
+
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div className='info' onClick={()=>{
+        setСolor(!color)}}>Click me!</div>
+     <div  
+    className = {color ? 'red' : 'blue'}  >Hello world:)</div>
+      {loading ? <Loading></Loading> :
+      error ? <errorCMP error={error}></errorCMP> :
+      data ? <DataCMP data={data}></DataCMP> : <></>
+      }
     </div>
   );
 }
