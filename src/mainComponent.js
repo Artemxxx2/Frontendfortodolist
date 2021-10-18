@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteData, newData } from "./ThunckRedux";
+import { newData, updateDataThunk } from "./ThunckRedux";
+import { ChangeValueActionCreator } from "./Todosreduser";
 
 let DataCMP = (props) =>{
 let [isActive,SetState] = useState(false)
@@ -15,18 +16,17 @@ const dispatch = useDispatch()
         return(
             <div>
                 <hr />
-                <input ref={Deleteitem} value={el.title}></input>
+                <input name='title' className={el._id} onChange={changeval} value={el.title}></input>
                 <p>Your notation is{el.wisdomthoughts}</p>
                 <p>date of publication is {el.date}</p>
-                <button  onClick={DeleteFCN}>Delete this post</button>
+                <button onClick={updateData} className={el._id}>update</button>
                 <hr />
             </div>
         )
     })
-    function DeleteFCN() {
-        debugger
-        const deletedItemTitle = Deleteitem.current.value;
-        dispatch(deleteData())
+    function updateData(e) {
+        let id = e.target.className
+        dispatch(updateDataThunk(id))
     }
     function Submit() {
       let a1= inputEl.current.value
@@ -39,6 +39,12 @@ const dispatch = useDispatch()
     }
     else{
       dispatch(newData(a1,a2))}
+    }
+    function changeval(e) {
+        console.log(e.target.name);
+        let id = e.target.className;
+        let change =e.target.value;
+       dispatch(ChangeValueActionCreator(change,id))
     }
 return (
 <div className ='wrapper'>

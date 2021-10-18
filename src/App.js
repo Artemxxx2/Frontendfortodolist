@@ -19,7 +19,7 @@ function App() {
 
  
   return (
-    <div>
+    <div className='wrapperX'>
       <div className='info' onClick={()=>{
         setСolor(!color)}}>Click me!</div>
      <div  

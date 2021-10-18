@@ -7,7 +7,7 @@ export const getData = () =>async (dispatch)=>{
         const data = await axios.get('/notation/')
         dispatch(RequestActionCreator(false))
         dispatch(RequestFullfilledActionCreator(data.data))
-        
+        console.log(data);
     } catch (error) {
         dispatch(RequestActionCreator(false))
         dispatch(REQUESTFAILEDACTIONCREATOR(error))
@@ -26,17 +26,18 @@ export const newData = (title,wisdomthoughts) =>async (dispatch)=>{
         dispatch(REQUESTFAILEDACTIONCREATOR(error))
     }
 }
-export const deleteData = () =>async (dispatch)=>{
+export const updateDataThunk = (id) =>async (dispatch,getState)=>{
+    
     try {
-        let test =  await axios.delete('/notation/',{
-            "title":"3213"
+        let {title,wisdomthoughts} = getState().TodosReducer.data.find(item=>item._id === id);
+        console.log(title,wisdomthoughts);
+       await axios.put('/notation/',{
+            title:title,
+            wisdomthoughts:wisdomthoughts
         })
-        // debugger
-        // console.log(test);
-        // const data = await axios.get('/notation/')
-        // dispatch(RequestFullfilledActionCreator(data.data))
+       await axios.get('/notation/')
     } catch (error) {
-        dispatch(RequestActionCreator(false))
-        dispatch(REQUESTFAILEDACTIONCREATOR(error))
+        
     }
+    
 }
