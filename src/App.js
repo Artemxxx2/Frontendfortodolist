@@ -5,6 +5,7 @@ import './index.css';
 import { getData } from './ThunckRedux';
 import Loading from './loadingComponent';
 import DataCMP from './mainComponent';
+import Errorcomponent from './errorcomponent';
 
 function App() {
   const [color, setСolor] = useState(false);
@@ -14,7 +15,7 @@ function App() {
     dispatch(getData())
   },[])
 
-  const {data,loading,error} = useSelector((state)=>state.TodosReducer)
+  const {data,loading,error,errorPayload} = useSelector((state)=>state.TodosReducer)
   console.log(data);
 
  
@@ -25,7 +26,7 @@ function App() {
      <div  
     className = {color ? 'red' : 'blue'}  >Hello world:)</div>
       {loading ? <Loading></Loading> :
-      error ? <errorCMP error={error}></errorCMP> :
+      error ? <Errorcomponent error={errorPayload} /> :
       data ? <DataCMP data={data}></DataCMP> : <></>
       }
     </div>

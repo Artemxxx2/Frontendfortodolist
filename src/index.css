@@ -76,8 +76,15 @@ z-index: 3;
   90% { transform: none; }   
   95% { transform: scaleY(0.1); }
  }
-input:focus{
-  border: 1px solid black;
+ .wisdomthoughtsClue{
+  margin: 10px;
+ }
+ .titleClue{
+  margin: 10px;
+ }
+input{
+  margin-left: 50px;
+ border:none;
 }
 .unactive{
   margin: 5px;
